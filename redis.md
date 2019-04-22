@@ -8,7 +8,8 @@ MISCONF Redis is configured to save RDB snapshots, but is currently not able to 
 2. 直接修改内核参数vm.overcommit_memory = 1
 
 **分析**
-1. 查看redis日志，Can’t save in background: fork: Cannot allocate memory ，很明确，内存不够了，为什么没收到告警呢？  
+1. 查看redis日志，Can’t save in background: fork: Cannot allocate memory ，很明确，内存不够了，为什么没收到告警呢？   
+
 这里redis主机内存监控告警阈值设置有问题，当时主机内存还有将近2G可用，为什么还不够？还得从redis持久化原理说起。
 redis持久化方式不做解析，我们用的rdb，一台主机有4个实例，每个实例占用内存2G(不包含碎片)，rdb文件大小在360M左右，主机内存16G(云主机实际是15.5G左右)，还跑一个java应用(占用内存4.2G)，codis-proxy消耗内存650M，所以应用总的消耗内存14G左右；redis在持久化数据到rdb文件的时候会fork主进程，异步回写数据，从而不使redis主进程阻塞，在回写的时候申请一块rdb文件大小的内存，持久化结束后覆盖原rdb文件，4个redis实例持久化需要1.5G内存，总内存就到了15.5，别忘了，操作系统消耗内存还没计算。
 inux操作系统有个CommitLimit 限制系统应用使用的内存
