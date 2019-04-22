@@ -22,7 +22,8 @@ sem四个参数含义：
 第三列SEMOPM，表示每次信号操作，系统调用的最大信号量数目，此值应该与第一列(SEMMSL)相同
 第四列SEMMNI，表示系统范围内的最大信号集(set)总数目
 ```
-有关`kernel.sem`,参考[RedHat document](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/tuning_and_optimizing_red_hat_enterprise_linux_for_oracle_9i_and_10g_databases/sect-oracle_9i_and_10g_tuning_guide-setting_semaphores-setting_semaphore_parameters),红帽官方文档知识很全的。
+有关`kernel.sem`,参考[RedHat document](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/tuning_and_optimizing_red_hat_enterprise_linux_for_oracle_9i_and_10g_databases/sect-oracle_9i_and_10g_tuning_guide-setting_semaphores-setting_semaphore_parameters),红帽官方文档知识很全的。  
+
 完整内核参数示例
 ```
 net.ipv4.ip_forward = 0
